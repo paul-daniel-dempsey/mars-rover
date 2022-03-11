@@ -7,16 +7,16 @@ const ALLHEADINGS = 'NESW';
 
 export class Vehicle {
 
-    private type : string = `${DEFAULTVEHICLENAME}}`;
+    private ident : string = DEFAULTVEHICLENAME;
     private step : number = DEFAULTVEHICLESTEP;
     private x : number;
     private y : number;
     private direction : string;
 
     // Allow anyone to check Vehicle setup
-    validSetup : boolean = false;
+    validSetup : boolean;
 
-    constructor(setup : string, boundary : Boundary, type? : string, distance?: number) {
+    constructor(setup : string, boundary : Boundary, ident? : string, distance?: number) {
            
         // SetUp String correct?
         const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1})$'); // NOTE : Align NumMax with DEFAULTXLIMIT
@@ -24,22 +24,20 @@ export class Vehicle {
 
         // Parse string to x, y, direction
         if (this.validSetup) {
-
-            // Parse string to x, y, direction
             let params = setup.split(' '); 
             this.x = parseInt(params[0]);
             this.y = parseInt(params[1]);
             this.direction = params[2];
             this.validSetup &&= boundary.validateLocation(this.x,this.y);  
-            //console.log(`Vehicle: ${this.type}(${this.x},${this.y}) ${this.direction} ${this.validSetup}`)
         }
     }
 
+    // Traverse foward moves and rotates
     move(commands : string, boundary : Boundary) {
-        // Traverse foward moves and rotates
         commands.split('').forEach(cmd => { this.isRotate(cmd) ? this.rotate(cmd) : this.isForward(cmd) ? this.forward(boundary) : 0})
     }
 
+    // Retreive location
     location() : string {
         return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
     }
@@ -49,7 +47,6 @@ export class Vehicle {
         let pos = ALLHEADINGS.indexOf(this.direction);
         pos = (rotation === 'L'? ((pos === 0)?ALLHEADINGS.length-1:pos += -1) : ((pos === ALLHEADINGS.length-1)?0:pos += 1));
         this.direction = ALLHEADINGS.substring(pos,pos+1);
-        //console.log(`rotate : ${this.x} ${this.y} ${this.direction}`);
     }
     
     // Change x, y based upon direction
@@ -59,8 +56,7 @@ export class Vehicle {
         if (boundary.validateLocation(this.x + xStep,this.y + yStep)) {
             this.x += xStep;
             this.y += yStep; 
-        }
-        //console.log(`forward : ${this.x} ${this.y} ${this.direction}`); 
+        } 
     }
 
     private isRotate(cmd : string): Boolean {
