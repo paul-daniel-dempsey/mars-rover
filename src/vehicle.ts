@@ -28,8 +28,9 @@ export class Vehicle {
             let params = setup.split(' '); 
             this.x = parseInt(params[0]);
             this.y = parseInt(params[1]);
-            this.direction = params[2];  
-            console.log(`Vehicle: ${this.type}(${this.x},${this.y}) ${this.direction}`)
+            this.direction = params[2];
+            this.validSetup &&= boundary.validateLocation(this.x,this.y);  
+            console.log(`Vehicle: ${this.type}(${this.x},${this.y}) ${this.direction} ${this.validSetup}`)
         }
     }
 
@@ -39,7 +40,7 @@ export class Vehicle {
     }
 
     location() : string {
-        return (this.validSetup) ? `${this.x} ${this.y} ${this.direction}` : ``;
+        return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
     }
 
     private rotate(rotation : string) {

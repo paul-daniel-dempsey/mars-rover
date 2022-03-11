@@ -18,9 +18,9 @@ describe("Controller", () => {
     test("Invalid Grid Max Exceeded >5", () => {
         expect(Go('6 6','1 1 N','L')).toEqual('');
     });
-//     test("Invalid Start Point Outside Grid", () => {
-//         expect(Go('0 0','1 1 N','L')).toEqual('');
-//     });
+    test("Invalid Start Point Outside Grid", () => {
+        expect(Go('0 0','1 1 N','L')).toEqual('');
+    });
 
 //     it.each([['0 0','0 0 N','L','0 0 W'],
 //             ['0 0','0 0 N','R','0 0 E'],

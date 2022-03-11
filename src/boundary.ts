@@ -28,6 +28,6 @@ export class Boundary {
     }
 
     validateLocation(x : number, y :number) : boolean {
-        return (this.validSetup) ? (this.xyAllowGrid[x][y] === 'OK') : false;
+        return (this.validSetup && x < this.xLimit && y < this.yLimit) ? (this.xyAllowGrid[x][y] === 'Y') : false;
     }
 }
