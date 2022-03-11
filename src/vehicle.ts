@@ -15,11 +15,11 @@ export class Vehicle {
     // Allow anyone to check Vehicle setup
     validSetup : boolean = false;
 
-    constructor(setup : string, type? : string, distance?: number) {
+    constructor(setup : string, boundary : Boundary, type? : string, distance?: number) {
            
         // SetUp String correct?
         const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1})$'); // NOTE : Align NumMax with DEFAULTXLIMIT
-        this.validSetup = CODE_PATTERN.test(setup);
+        this.validSetup = CODE_PATTERN.test(setup) && boundary.validSetup;;
 
         // Parse string to x, y, direction
         if (this.validSetup) {
@@ -47,7 +47,7 @@ export class Vehicle {
 
     private forward(boundary : Boundary) { 
     }
-    
+
     private isRotate(cmd : string): Boolean {
         return (cmd === 'L' || cmd === 'R'); }
     

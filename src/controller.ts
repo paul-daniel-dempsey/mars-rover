@@ -3,7 +3,7 @@ import {Vehicle} from './vehicle';
 
 export function Go (boundary : string, vehicle : string, commands : string) : string {
     let plateau = new Boundary(boundary,'plateauMars');
-    let rover = new Vehicle(vehicle,'roverMars',1);
+    let rover = new Vehicle(vehicle,plateau,'roverMars',1);
     rover.move(commands,plateau);
     return rover.location();
 }

@@ -15,9 +15,9 @@ describe("Controller", () => {
            ("Invalid : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
                  expect(Go(boundary,vehicle,commands)).toEqual(result);
              });
-//     test("Invalid Grid Max Exceeded >5", () => {
-//         expect(Go('6 6','1 1 N','L')).toEqual('');
-//     });
+    test("Invalid Grid Max Exceeded >5", () => {
+        expect(Go('6 6','1 1 N','L')).toEqual('');
+    });
 //     test("Invalid Start Point Outside Grid", () => {
 //         expect(Go('0 0','1 1 N','L')).toEqual('');
 //     });
