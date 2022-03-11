@@ -59,37 +59,37 @@ describe("Controller", () => {
                  expect(Go(boundary,vehicle,commands)).toEqual(result);
              });
 
-//     it.each([['2 2','1 1 N','M','1 2 N'],
-//              ['2 2','1 1 N','ML','1 2 W'],
-//              ['2 2','1 1 N','LM','0 1 W'],
-//              ['2 2','1 1 N','MR','1 2 E'],
-//              ['2 2','1 1 N','RM','2 1 E'],
-//              ['2 2','1 1 S','M','1 0 S'],
-//              ['2 2','1 1 S','LM','2 1 E'],
-//              ['2 2','1 1 S','ML','1 0 E'],
-//              ['2 2','1 1 S','RM','0 1 W'],
-//              ['2 2','1 1 S','MR','1 0 W'],
-//              ['2 2','1 1 W','M','0 1 W'],
-//              ['2 2','1 1 W','LM','1 0 S'],
-//              ['2 2','1 1 W','ML','0 1 S'],
-//              ['2 2','1 1 W','RM','1 2 N'],
-//              ['2 2','1 1 W','MR','0 1 N'],
-//              ['2 2','1 1 E','M','2 1 E'],
-//              ['2 2','1 1 E','LM','1 2 N'],
-//              ['2 2','1 1 E','ML','2 1 N'],
-//              ['2 2','1 1 E','RM','1 0 S'],
-//              ['2 2','1 1 E','MR','2 1 S'],
-//             ])
-//             ("Single Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-//                   expect(Go(boundary,vehicle,commands)).toEqual(result);
-//               });
+    it.each([['2 2','1 1 N','M','1 2 N'],
+             ['2 2','1 1 N','ML','1 2 W'],
+             ['2 2','1 1 N','LM','0 1 W'],
+             ['2 2','1 1 N','MR','1 2 E'],
+             ['2 2','1 1 N','RM','2 1 E'],
+             ['2 2','1 1 S','M','1 0 S'],
+             ['2 2','1 1 S','LM','2 1 E'],
+             ['2 2','1 1 S','ML','1 0 E'],
+             ['2 2','1 1 S','RM','0 1 W'],
+             ['2 2','1 1 S','MR','1 0 W'],
+             ['2 2','1 1 W','M','0 1 W'],
+             ['2 2','1 1 W','LM','1 0 S'],
+             ['2 2','1 1 W','ML','0 1 S'],
+             ['2 2','1 1 W','RM','1 2 N'],
+             ['2 2','1 1 W','MR','0 1 N'],
+             ['2 2','1 1 E','M','2 1 E'],
+             ['2 2','1 1 E','LM','1 2 N'],
+             ['2 2','1 1 E','ML','2 1 N'],
+             ['2 2','1 1 E','RM','1 0 S'],
+             ['2 2','1 1 E','MR','2 1 S'],
+            ])
+            ("Single Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
+                  expect(Go(boundary,vehicle,commands)).toEqual(result);
+              });
 
-//     it.each([['5 5','1 2 N','LMLMLMLMM','1 3 N'],
-//             ['5 5','3 3 E','MMRMMRMRRM','5 1 E'],
-//     ])
-//     ("Multi Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-//         expect(Go(boundary,vehicle,commands)).toEqual(result);
-//     });
+    it.each([['5 5','1 2 N','LMLMLMLMM','1 3 N'],
+            ['5 5','3 3 E','MMRMMRMRRM','5 1 E'],
+    ])
+    ("Multi Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
+        expect(Go(boundary,vehicle,commands)).toEqual(result);
+    });
 
 //     it.each([['5 5','0 0 S','MM','0 0 S'],
 //             ['5 5','0 0 S','MMRR','0 0 N'],

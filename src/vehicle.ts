@@ -37,7 +37,7 @@ export class Vehicle {
 
     move(commands : string, boundary : Boundary) {
         // Traverse foward moves and rotates
-        commands.split('').forEach(cmd => { this.isRotate(cmd) ? this.rotate(cmd) : this.isForward(cmd) ? this.forward(boundary) : 0})
+        commands.split('').forEach(cmd => { this.isRotate(cmd) ? this.rotate(cmd) : this.isForward(cmd) ? this.forward() : 0})
     }
 
     location() : string {
@@ -51,8 +51,12 @@ export class Vehicle {
         this.direction = ALLHEADINGS.substring(pos,pos+1);
         //console.log(`rotate : ${this.x} ${this.y} ${this.direction}`);
     }
-
-    private forward(boundary : Boundary) { 
+    
+    // Change x, y based upon direction
+    private forward() {
+        this.x += ((this.direction==='E')? +this.step: ((this.direction==='W')? -this.step: 0)); 
+        this.y += ((this.direction==='N')? +this.step: ((this.direction==='S')? -this.step: 0)); 
+        //console.log(`forward : ${this.x} ${this.y} ${this.direction}`); 
     }
 
     private isRotate(cmd : string): Boolean {
