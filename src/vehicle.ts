@@ -3,6 +3,7 @@ import { Boundary } from "./boundary";
 const DEFAULTXLIMIT = 5;
 const DEFAULTVEHICLENAME = 'defaultVehicle';
 const DEFAULTVEHICLESTEP = 1;
+const ALLHEADINGS = 'NESW';
 
 export class Vehicle {
 
@@ -30,7 +31,7 @@ export class Vehicle {
             this.y = parseInt(params[1]);
             this.direction = params[2];
             this.validSetup &&= boundary.validateLocation(this.x,this.y);  
-            console.log(`Vehicle: ${this.type}(${this.x},${this.y}) ${this.direction} ${this.validSetup}`)
+            //console.log(`Vehicle: ${this.type}(${this.x},${this.y}) ${this.direction} ${this.validSetup}`)
         }
     }
 
@@ -43,7 +44,12 @@ export class Vehicle {
         return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
     }
 
+    // Alter direction ('NESW') dependent on rotation (L,R)
     private rotate(rotation : string) {
+        let pos = ALLHEADINGS.indexOf(this.direction);
+        pos = (rotation === 'L'? ((pos === 0)?ALLHEADINGS.length-1:pos += -1) : ((pos === ALLHEADINGS.length-1)?0:pos += 1));
+        this.direction = ALLHEADINGS.substring(pos,pos+1);
+        //console.log(`rotate : ${this.x} ${this.y} ${this.direction}`);
     }
 
     private forward(boundary : Boundary) { 
