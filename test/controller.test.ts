@@ -91,13 +91,13 @@ describe("Controller", () => {
         expect(Go(boundary,vehicle,commands)).toEqual(result);
     });
 
-//     it.each([['5 5','0 0 S','MM','0 0 S'],
-//             ['5 5','0 0 S','MMRR','0 0 N'],
-//             ['2 2','1 1 N','MMRM','2 2 E'],
-//             ['2 2','1 1 S','MMLM','2 0 E'],
-//             ['2 2','1 1 N','MMRRMLL','1 1 N'],
-//    ])
-//    ("Move Beyond Grid : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-//          expect(Go(boundary,vehicle,commands)).toEqual(result);
-//      });
+    it.each([['5 5','0 0 S','MM','0 0 S'],
+            ['5 5','0 0 S','MMRR','0 0 N'],
+            ['2 2','1 1 N','MMRM','2 2 E'],
+            ['2 2','1 1 S','MMLM','2 0 E'],
+            ['2 2','1 1 N','MMRRMLL','1 1 N'],
+   ])
+   ("Move Beyond Grid : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
+         expect(Go(boundary,vehicle,commands)).toEqual(result);
+     });
 });
