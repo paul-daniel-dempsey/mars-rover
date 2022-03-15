@@ -31,8 +31,8 @@ locate
 	./src/vehicle.ts' }
 
 Future Enhancements (provisioned) ->
-1. Boundary of irregular shapes that have obsticles (craters!) in.
-2. Vehicle move backwards as well as forwards.
+1. Boundary of irregular shapes that have obsticles (craters!) in (Supply Array[][] where cell='N' vehicle cannot enter)
+2. Vehicle move backwards as well as forwards (commands: M/F=Forward B=Backward)
 3. Vehicle move multiple steps.
 4. Vehicle & Boundary Identification.
 

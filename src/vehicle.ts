@@ -37,12 +37,12 @@ export class Vehicle {
 
     // Traverse foward moves and rotates
     move(commands : string, boundary : Boundary) {
-        commands.split('').forEach(cmd => { this.isRotate(cmd) ? this.rotate(cmd) : this.isForward(cmd) ? this.forward(boundary) : 0})
+        commands.split('').forEach(cmd => { this.isRotate(cmd) ? this.rotate(cmd) : this.isTravel(cmd) ? this.travel(boundary,cmd) : 0})
     }
 
     // Retreive location
     location() : string {
-        console.log(`${this.moves}`)
+        //console.log(`${this.moves}`)
         return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
     }
 
@@ -54,9 +54,10 @@ export class Vehicle {
     }
     
     // Change x, y based upon direction
-    private forward(boundary : Boundary) {
-        const xStep = ((this.direction==='E')? +this.step: ((this.direction==='W')? -this.step: 0)); 
-        const yStep = ((this.direction==='N')? +this.step: ((this.direction==='S')? -this.step: 0)); 
+    private travel(boundary : Boundary, direction : string) {
+        const invert = ((direction==='B')? -1 : 1);
+        const xStep = ((this.direction==='E')? this.step*invert: ((this.direction==='W')? -this.step*invert: 0)); 
+        const yStep = ((this.direction==='N')? this.step*invert: ((this.direction==='S')? -this.step*invert: 0)); 
         if (boundary.validateLocation(this.x + xStep,this.y + yStep)) {
             this.x += xStep;
             this.y += yStep; 
@@ -67,7 +68,7 @@ export class Vehicle {
     private isRotate(cmd : string): Boolean {
         return (cmd === 'L' || cmd === 'R'); }
     
-    private isForward(cmd : string): Boolean {
-        return (cmd === 'M'); }
+    private isTravel(cmd : string): Boolean {
+        return (cmd === 'M' || cmd === 'F' || cmd === 'B'); }      
 }
 

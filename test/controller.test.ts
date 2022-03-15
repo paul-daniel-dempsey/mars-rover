@@ -142,4 +142,26 @@ it.each([
     ("Custom Irregular Test", (irregular, vehicle, commands, result) => {
         expect(GoCustom(irregular,vehicle,commands)).toEqual(result);
     });
+    const backwards=[   ['0 4','1 4','2 4','3 4','4 4'],
+                        ['N','1 3','2 3','3 3','4 3'],
+                        ['0 2','1 2','2 2','3 2','4 2'],
+                        ['0 1','1 1','2 1','3 1','N'],
+                        ['0 0','1 0','2 0','3 0','4 0']];
+    it.each([
+        [backwards,'0 0 N','MMBB','0 0 N'],
+        [backwards,'0 0 N','FFBB','0 0 N'],
+        [backwards,'4 4 S','MMBB','4 4 S'],
+        [backwards,'4 4 S','FFBB','4 4 S'],
+        [backwards,'0 0 N','RMMBB','0 0 E'],
+        [backwards,'0 0 N','RFFBB','0 0 E'],
+        [backwards,'4 0 N','LMMBB','4 0 W'],
+        [backwards,'4 0 N','LFFBB','4 0 W'],
+        [backwards,'0 0 N','FFFBB','0 0 N'],
+        [backwards,'4 4 S','FFFBB','4 4 S'],
+        [backwards,'0 0 N','FFFBBBB','0 0 N'],
+        [backwards,'4 4 S','FFFBBBB','4 4 S'],
+    ])
+    ("Vehicle move backwards+forwards", (backwards, vehicle, commands, result) => {
+    expect(GoCustom(backwards,vehicle,commands)).toEqual(result);
+    });
 });
