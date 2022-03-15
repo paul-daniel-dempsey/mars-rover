@@ -35,3 +35,20 @@ Future Enhancements (provisioned) ->
 2. Vehicle move backwards as well as forwards.
 3. Vehicle move multiple steps.
 4. Vehicle & Boundary Identification.
+
+==========================================================
+
+Installation/Setup
+
+npm i ts-node nodemon
+npm i --save-dev jest typescript ts-jest @types/jest
+npx ts-jest config:init
+npm start
+
+package.json =>
+  "scripts": {
+    "test": "jest",
+    "start": "npx jest controller.test.ts"
+  },
+  
+ {fyi : nodemon watches files and recompiles when change)

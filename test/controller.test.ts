@@ -1,4 +1,4 @@
-import { Go } from '../src/controller';
+import { Go, GoCustom } from '../src/controller';
 
 describe("Controller", () => {
 
@@ -90,6 +90,21 @@ describe("Controller", () => {
     ("Multi Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
         expect(Go(boundary,vehicle,commands)).toEqual(result);
     });
+    
+const xOkyInvertCheck=[
+                ['0 5','1 5','2 5','3 5','4 5','5 5'],
+                ['0 4','1 4','2 4','3 4','4 4','5 4'],
+                ['0 3','1 3','2 3','3 3','4 3','5 3'],
+                ['0 2','1 2','2 2','3 2','4 2','5 2'],
+                ['0 1','1 1','2 1','3 1','4 1','5 1'],
+                ['0 0','1 0','2 0','3 0','4 0','5 0']];
+it.each([
+        //[xOkyInvertCheck,'1 2 N','LMLMLMLMM','1 3 N'],
+        [xOkyInvertCheck,'3 3 E','MMRMMRMRRM','5 1 E'],
+])
+("Check Inverted Y Co-ordinate", (xOkyInvertCheck, vehicle, commands, result) => {
+    expect(GoCustom(xOkyInvertCheck,vehicle,commands)).toEqual(result);
+});
 
     it.each([['5 5','0 0 S','MM','0 0 S'],
             ['5 5','0 0 S','MMRR','0 0 N'],
@@ -100,4 +115,31 @@ describe("Controller", () => {
    ("Move Beyond Grid : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
          expect(Go(boundary,vehicle,commands)).toEqual(result);
      });
+
+    const crater=[  ['Y','Y','Y','Y','Y'],
+                    ['Y','N','N','N','Y'],
+                    ['Y','N','N','N','Y'],
+                    ['Y','N','N','N','Y'],
+                    ['Y','Y','Y','Y','Y']]; 
+    it.each([[crater,'0 0 N','MMMMMRMML','2 4 N'],
+             [crater,'0 0 N','MR','0 1 E'],
+             [crater,'0 0 N','MRMRMLL','0 0 N'],
+    ])
+    ("Custom Crater Test", (crater, vehicle, commands, result) => {
+        expect(GoCustom(crater,vehicle,commands)).toEqual(result);
+    });
+    const irregular=[['0 4','1 4','2 4','3 4','4 4'],
+                    ['0 3','1 3','2 3','3 3','4 3'],
+                    ['N','1 2','2 2','N','N'],
+                    ['N','1 1','2 1','N','4 1'],
+                    ['0 0','1 0','2 0','N','4 0']];
+    it.each([
+            [irregular,'2 2 W','MMRRMM','2 2 E'],
+            [irregular,'2 2 W','MM','1 2 W'],
+            [irregular,'2 2 W','LMMMLM','2 0 E'],
+            [irregular,'0 0 N','MMMMMRMML','2 0 N'],
+    ])
+    ("Custom Irregular Test", (irregular, vehicle, commands, result) => {
+        expect(GoCustom(irregular,vehicle,commands)).toEqual(result);
+    });
 });

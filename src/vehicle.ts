@@ -13,6 +13,8 @@ export class Vehicle {
     private y : number;
     private direction : string;
 
+    private moves : string;
+
     // Allow anyone to check Vehicle setup
     validSetup : boolean;
 
@@ -28,6 +30,7 @@ export class Vehicle {
             this.x = parseInt(params[0]);
             this.y = parseInt(params[1]);
             this.direction = params[2];
+            this.moves = `(${this.x} ${this.y})`;
             this.validSetup &&= boundary.validateLocation(this.x,this.y);  
         }
     }
@@ -39,6 +42,7 @@ export class Vehicle {
 
     // Retreive location
     location() : string {
+        console.log(`${this.moves}`)
         return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
     }
 
@@ -56,6 +60,7 @@ export class Vehicle {
         if (boundary.validateLocation(this.x + xStep,this.y + yStep)) {
             this.x += xStep;
             this.y += yStep; 
+            this.moves += `(${this.x} ${this.y})`;
         } 
     }
 
