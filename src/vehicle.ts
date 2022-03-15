@@ -13,7 +13,7 @@ export class Vehicle {
     private y : number;
     private direction : string;
 
-    private moves : string;
+    private moveRecord : string;
 
     // Allow anyone to check Vehicle setup
     validSetup : boolean;
@@ -30,7 +30,7 @@ export class Vehicle {
             this.x = parseInt(params[0]);
             this.y = parseInt(params[1]);
             this.direction = params[2];
-            this.moves = `(${this.x} ${this.y})`;
+            this.moveRecord = `(${this.x} ${this.y})`;
             this.validSetup &&= boundary.validateLocation(this.x,this.y);  
         }
     }
@@ -61,7 +61,7 @@ export class Vehicle {
         if (boundary.validateLocation(this.x + xStep,this.y + yStep)) {
             this.x += xStep;
             this.y += yStep; 
-            this.moves += `(${this.x} ${this.y})`;
+            this.moveRecord += `(${this.x} ${this.y})`;
         } 
     }
 

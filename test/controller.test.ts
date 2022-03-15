@@ -1,4 +1,4 @@
-import { Go, GoCustom } from '../src/controller';
+import { Go } from '../src/controller';
 
 describe("Controller", () => {
 
@@ -13,13 +13,13 @@ describe("Controller", () => {
             ['6 6','6 6 N','HDQ',''],
             ])
            ("Invalid : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-                 expect(Go(boundary,vehicle,commands)).toEqual(result);
+                 expect(Go(boundary,undefined,vehicle,commands)).toEqual(result);
              });
     test("Invalid Grid Max Exceeded >5", () => {
-        expect(Go('6 6','1 1 N','L')).toEqual('');
+        expect(Go('6 6',undefined,'1 1 N','L')).toEqual('');
     });
     test("Invalid Start Point Outside Grid", () => {
-        expect(Go('0 0','1 1 N','L')).toEqual('');
+        expect(Go('0 0',undefined,'1 1 N','L')).toEqual('');
     });
 
     it.each([['0 0','0 0 N','L','0 0 W'],
@@ -56,7 +56,7 @@ describe("Controller", () => {
             ['0 0','0 0 W','RRRR','0 0 W'],
         ])
            ('Rotate : [%p][%p][%p]=[%p]', (boundary, vehicle, commands,result) => {
-                 expect(Go(boundary,vehicle,commands)).toEqual(result);
+                 expect(Go(boundary,undefined,vehicle,commands)).toEqual(result);
              });
 
     it.each([['2 2','1 1 N','M','1 2 N'],
@@ -81,14 +81,14 @@ describe("Controller", () => {
              ['2 2','1 1 E','MR','2 1 S'],
             ])
             ("Single Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-                  expect(Go(boundary,vehicle,commands)).toEqual(result);
+                  expect(Go(boundary,undefined,vehicle,commands)).toEqual(result);
               });
 
     it.each([['5 5','1 2 N','LMLMLMLMM','1 3 N'],
             ['5 5','3 3 E','MMRMMRMRRM','5 1 E'],
     ])
     ("Multi Move Rotate : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-        expect(Go(boundary,vehicle,commands)).toEqual(result);
+        expect(Go(boundary,undefined,vehicle,commands)).toEqual(result);
     });
     
 const xOkyInvertCheck=[
@@ -103,7 +103,7 @@ it.each([
         [xOkyInvertCheck,'3 3 E','MMRMMRMRRM','5 1 E'],
 ])
 ("Check Inverted Y Co-ordinate", (xOkyInvertCheck, vehicle, commands, result) => {
-    expect(GoCustom(xOkyInvertCheck,vehicle,commands)).toEqual(result);
+    expect(Go('',xOkyInvertCheck,vehicle,commands)).toEqual(result);
 });
 
     it.each([['5 5','0 0 S','MM','0 0 S'],
@@ -113,7 +113,7 @@ it.each([
             ['2 2','1 1 N','MMRRMLL','1 1 N'],
    ])
    ("Move Beyond Grid : [%p][%p][%p]=[%p]", (boundary, vehicle, commands,result) => {
-         expect(Go(boundary,vehicle,commands)).toEqual(result);
+         expect(Go(boundary,undefined,vehicle,commands)).toEqual(result);
      });
 
     const crater=[  ['Y','Y','Y','Y','Y'],
@@ -126,7 +126,7 @@ it.each([
              [crater,'0 0 N','MRMRMLL','0 0 N'],
     ])
     ("Custom Crater Test", (crater, vehicle, commands, result) => {
-        expect(GoCustom(crater,vehicle,commands)).toEqual(result);
+        expect(Go(undefined,crater,vehicle,commands)).toEqual(result);
     });
     const irregular=[['0 4','1 4','2 4','3 4','4 4'],
                     ['0 3','1 3','2 3','3 3','4 3'],
@@ -140,7 +140,7 @@ it.each([
             [irregular,'0 0 N','MMMMMRMML','2 0 N'],
     ])
     ("Custom Irregular Test", (irregular, vehicle, commands, result) => {
-        expect(GoCustom(irregular,vehicle,commands)).toEqual(result);
+        expect(Go(undefined,irregular,vehicle,commands)).toEqual(result);
     });
     const backwards=[   ['0 4','1 4','2 4','3 4','4 4'],
                         ['N','1 3','2 3','3 3','4 3'],
@@ -162,6 +162,28 @@ it.each([
         [backwards,'4 4 S','FFFBBBB','4 4 S'],
     ])
     ("Vehicle move backwards+forwards", (backwards, vehicle, commands, result) => {
-    expect(GoCustom(backwards,vehicle,commands)).toEqual(result);
+    expect(Go(undefined,backwards,vehicle,commands)).toEqual(result);
+    });
+    const moveBigSteps=[   ['0 4','1 4','2 4','3 4','4 4'],
+    ['N','1 3','2 3','3 3','4 3'],
+    ['0 2','1 2','2 2','3 2','4 2'],
+    ['0 1','1 1','2 1','3 1','N'],
+    ['0 0','1 0','2 0','3 0','4 0']];
+    it.each([
+        [moveBigSteps,'0 0 N','MMBB','0 0 N'],
+        [moveBigSteps,'0 0 N','FFBB','0 0 N'],
+        [moveBigSteps,'4 4 S','MMBB','4 4 S'],
+        [moveBigSteps,'4 4 S','FFBB','4 4 S'],
+        [moveBigSteps,'0 0 N','RMMBB','0 0 E'],
+        [moveBigSteps,'0 0 N','RFFBB','0 0 E'],
+        [moveBigSteps,'4 0 N','LMMBB','4 0 W'],
+        [moveBigSteps,'4 0 N','LFFBB','4 0 W'],
+        [moveBigSteps,'0 0 N','FFFBB','0 0 N'],
+        [moveBigSteps,'4 4 S','FFFBB','4 4 S'],
+        [moveBigSteps,'0 0 N','FFFBBBB','0 0 N'],
+        [moveBigSteps,'4 4 S','FFFBBBB','4 4 S'],
+    ])
+    ("Vehicle move in bigger steps", (moveBigSteps, vehicle, commands, result) => {
+    expect(Go(undefined,moveBigSteps,vehicle,commands)).toEqual(result);
     });
 });

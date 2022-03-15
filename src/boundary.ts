@@ -12,24 +12,24 @@ export class Boundary {
     // Allow anyone to check Boundary setup
     validSetup : boolean;
 
-    constructor(setup : string, ident? : string, xyAllowGrid?: string[][]) {
+    constructor(xySetup : string, xyGrid: string[][], ident? : string) {
         
         // SetUp string correct?
         const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1})$')
-        this.validSetup = CODE_PATTERN.test(setup) || !(xyAllowGrid === undefined);
+        this.validSetup = CODE_PATTERN.test(xySetup) || !(xyGrid === undefined);
         
-        if (this.validSetup && (xyAllowGrid === undefined)) {
+        if (this.validSetup && (xyGrid === undefined)) {
             // Parse string to xlimit, ylimit (starts at zero so add 1)
-            let params = setup.split(' ');
+            let params = xySetup.split(' ');
             this.xLimit=parseInt(params[0])+1;
             this.yLimit=parseInt(params[1])+1; 
             this.xyAllowGrid = Array(this.xLimit).fill('Y').map(() => Array(this.yLimit).fill('Y'));
           }
          else if (this.validSetup) {
              // Take Custom Grid (N=vehicle not allowed to enter)
-            this.xLimit=xyAllowGrid[1].length;
-            this.yLimit=xyAllowGrid.length;
-            this.xyAllowGrid = xyAllowGrid.slice().reverse(); // copy/duplicate array, invert Y-axis  
+            this.xLimit=xyGrid[1].length;
+            this.yLimit=xyGrid.length;
+            this.xyAllowGrid = xyGrid.slice().reverse(); // copy/duplicate array, invert Y-axis  
          }
     }
 
