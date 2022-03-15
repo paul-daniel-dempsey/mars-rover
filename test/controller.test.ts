@@ -164,25 +164,19 @@ it.each([
     ("Vehicle move backwards+forwards", (backwards, vehicle, commands, result) => {
     expect(Go(undefined,backwards,vehicle,commands)).toEqual(result);
     });
-    const moveBigSteps=[   ['0 4','1 4','2 4','3 4','4 4'],
-    ['N','1 3','2 3','3 3','4 3'],
-    ['0 2','1 2','2 2','3 2','4 2'],
-    ['0 1','1 1','2 1','3 1','N'],
-    ['0 0','1 0','2 0','3 0','4 0']];
+    const moveBigSteps=[    ['0 4','1 4','2 4','3 4','4 4'],
+                            ['0 3','1 3','2 3','3 3','4 3'],
+                            ['0 2','1 2','2 2','3 2','4 2'],
+                            ['0 1','1 1','2 1','3 1','4 1'],
+                            ['0 0','1 0','2 0','3 0','4 0']];
     it.each([
-        [moveBigSteps,'0 0 N','MMBB','0 0 N'],
-        [moveBigSteps,'0 0 N','FFBB','0 0 N'],
-        [moveBigSteps,'4 4 S','MMBB','4 4 S'],
-        [moveBigSteps,'4 4 S','FFBB','4 4 S'],
-        [moveBigSteps,'0 0 N','RMMBB','0 0 E'],
-        [moveBigSteps,'0 0 N','RFFBB','0 0 E'],
-        [moveBigSteps,'4 0 N','LMMBB','4 0 W'],
-        [moveBigSteps,'4 0 N','LFFBB','4 0 W'],
-        [moveBigSteps,'0 0 N','FFFBB','0 0 N'],
-        [moveBigSteps,'4 4 S','FFFBB','4 4 S'],
-        [moveBigSteps,'0 0 N','FFFBBBB','0 0 N'],
-        [moveBigSteps,'4 4 S','FFFBBBB','4 4 S'],
-    ])
+        [moveBigSteps,'0 0 N 1','FF','0 2 N'],
+        [moveBigSteps,'4 4 S 1','FF','4 2 S'],
+        [moveBigSteps,'0 0 N 2','FF','0 4 N'],
+        [moveBigSteps,'4 4 S 2','FF','4 0 S'],
+        [moveBigSteps,'0 0 N 3','FF','0 3 N'],
+        [moveBigSteps,'4 4 S 3','FF','4 1 S'],
+        ])
     ("Vehicle move in bigger steps", (moveBigSteps, vehicle, commands, result) => {
     expect(Go(undefined,moveBigSteps,vehicle,commands)).toEqual(result);
     });

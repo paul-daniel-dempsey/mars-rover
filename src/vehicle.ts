@@ -21,7 +21,9 @@ export class Vehicle {
     constructor(setup : string, boundary : Boundary, ident? : string, distance?: number) {
            
         // SetUp String correct?
-        const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1})$'); // NOTE : Align NumMax with DEFAULTXLIMIT
+        //const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1}\s?[0-' + DEFAULTXLIMIT + ']?)$');
+        const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1}' + 
+                                        ((setup.length>6) ? ' [0-' + DEFAULTXLIMIT + ']?' : '') + ')$');
         this.validSetup = CODE_PATTERN.test(setup) && boundary.validSetup;;
 
         // Parse string to x, y, direction
@@ -30,6 +32,7 @@ export class Vehicle {
             this.x = parseInt(params[0]);
             this.y = parseInt(params[1]);
             this.direction = params[2];
+            this.step = ((params[3] === undefined) ? DEFAULTVEHICLESTEP : parseInt(params[3]));
             this.moveRecord = `(${this.x} ${this.y})`;
             this.validSetup &&= boundary.validateLocation(this.x,this.y);  
         }
@@ -44,6 +47,11 @@ export class Vehicle {
     location() : string {
         //console.log(`${this.moves}`)
         return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
+    }
+
+    // Allow Vehicle to cover multiple squares
+    distance(stepSize : number) {
+        this.step = stepSize;
     }
 
     // Alter direction ('NESW') dependent on rotation (L,R)
