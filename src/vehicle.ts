@@ -1,8 +1,6 @@
-import { transpileModule } from "typescript";
 import { Boundary } from "./boundary";
 
 const DEFAULTXLIMIT = 5;
-const DEFAULTVEHICLENAME = 'defaultVehicle';
 const DEFAULTVEHICLESTEP = 1;
 const ALLHEADINGS = 'NESW';
 
@@ -51,7 +49,7 @@ export class Vehicle {
         return (this.validSetup) ? `${boundary.identifier} ${this.identifier} ${this.x} ${this.y} ${this.direction}`.trim() : ``;
     }
 
-    // Allow Vehicle to cover multiple squares
+    // Modify Vehicle coverage
     distance(stepSize : number) {
         this.step = stepSize;
     }

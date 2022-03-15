@@ -1,6 +1,5 @@
 const DEFAULTXLIMIT = 5;
 const DEFAULTYLIMIT = DEFAULTXLIMIT;
-const DEFAULTBOUNDARYNAME = 'plateau';
 
 export class Boundary {
 

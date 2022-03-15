@@ -9,7 +9,6 @@ export function Go (boundary : string, boundaryCustom : string[][], vehicle : st
     return rover.location(plateau);
 }
 
-
 module.exports = {
     Go
 };

@@ -31,10 +31,10 @@ locate
 	./src/vehicle.ts' }
 
 Future Enhancements (provisioned) ->
-1. Boundary of irregular shapes that have obsticles (craters!) in (Supply Array[][] where cell='N' vehicle cannot enter)
-2. Vehicle move backwards as well as forwards (commands: M/F=Forward B=Backward)
-3. Vehicle move multiple steps (vehicle setup: 'X Y N/E/S/W STEP' where STEP 1-5 and optional)
-4. Vehicle & Boundary Identification.
+1. Boundary of irregular shapes that have obsticles (craters!) in (optional Array[][] where cell='N' vehicle cannot enter, boundary string ignored in this case)
+2. Vehicle move backwards as well as forwards (optional commands: F=Forward B=Backward or M)
+3. Vehicle move multiple steps (optional vehicle setup: 'X Y N/E/S/W STEP' where STEP 1-5)
+4. Vehicle & Boundary Identification (optional Go Function Identifier Strings for grid and vehicle)
 
 ==========================================================
 
