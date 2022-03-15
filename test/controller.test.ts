@@ -180,4 +180,18 @@ it.each([
     ("Vehicle move in bigger steps", (moveBigSteps, vehicle, commands, result) => {
     expect(Go(undefined,moveBigSteps,vehicle,commands)).toEqual(result);
     });
+    const identifiers=[ ['0 4','1 4','2 4','3 4','4 4'],
+                        ['0 3','1 3','2 3','3 3','4 3'],
+                        ['0 2','1 2','2 2','3 2','4 2'],
+                        ['0 1','1 1','2 1','3 1','4 1'],
+                        ['0 0','1 0','2 0','3 0','4 0']];
+    it.each([
+    [identifiers,'0 0 N 1','FF','','','0 2 N'],
+    [identifiers,'0 0 N 1','FF','surfaceMars','','surfaceMars  0 2 N'],
+    [identifiers,'0 0 N 1','FF','','roverMars','roverMars 0 2 N'],
+    [identifiers,'0 0 N 1','FF','surfaceMars','roverMars','surfaceMars roverMars 0 2 N'],
+    ])
+    ("Vehicle move in bigger steps", (identifiers, vehicle, commands, identBoundary, identVehicle, result) => {
+    expect(Go(undefined,identifiers,vehicle,commands,identBoundary,identVehicle)).toEqual(result);
+    });
 });

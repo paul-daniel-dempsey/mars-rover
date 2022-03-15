@@ -1,3 +1,4 @@
+import { transpileModule } from "typescript";
 import { Boundary } from "./boundary";
 
 const DEFAULTXLIMIT = 5;
@@ -7,18 +8,18 @@ const ALLHEADINGS = 'NESW';
 
 export class Vehicle {
 
-    private ident : string = DEFAULTVEHICLENAME;
-    private step : number = DEFAULTVEHICLESTEP;
+    private step : number;
     private x : number;
     private y : number;
     private direction : string;
 
     private moveRecord : string;
 
-    // Allow anyone to check Vehicle setup
+    // Allow anyone to check Vehicle setup correct and licence plate
+    identifier : string;
     validSetup : boolean;
 
-    constructor(setup : string, boundary : Boundary, ident? : string, distance?: number) {
+    constructor(setup : string, boundary : Boundary, identifier? : string) {
            
         // SetUp String correct?
         //const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1}\s?[0-' + DEFAULTXLIMIT + ']?)$');
@@ -36,6 +37,7 @@ export class Vehicle {
             this.moveRecord = `(${this.x} ${this.y})`;
             this.validSetup &&= boundary.validateLocation(this.x,this.y);  
         }
+        this.identifier = (identifier === undefined ? '' : identifier);
     }
 
     // Traverse foward moves and rotates
@@ -44,9 +46,9 @@ export class Vehicle {
     }
 
     // Retreive location
-    location() : string {
+    location(boundary : Boundary) : string {
         //console.log(`${this.moves}`)
-        return (this.validSetup ) ? `${this.x} ${this.y} ${this.direction}` : ``;
+        return (this.validSetup) ? `${boundary.identifier} ${this.identifier} ${this.x} ${this.y} ${this.direction}`.trim() : ``;
     }
 
     // Allow Vehicle to cover multiple squares

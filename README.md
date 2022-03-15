@@ -33,7 +33,7 @@ locate
 Future Enhancements (provisioned) ->
 1. Boundary of irregular shapes that have obsticles (craters!) in (Supply Array[][] where cell='N' vehicle cannot enter)
 2. Vehicle move backwards as well as forwards (commands: M/F=Forward B=Backward)
-3. Vehicle move multiple steps.
+3. Vehicle move multiple steps (vehicle setup: 'X Y N/E/S/W STEP' where STEP 1-5 and optional)
 4. Vehicle & Boundary Identification.
 
 ==========================================================
