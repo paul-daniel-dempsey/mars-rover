@@ -1,6 +1,6 @@
 const DEFAULTXLIMIT = 5;
 const DEFAULTYLIMIT = DEFAULTXLIMIT;
-
+ 
 export class Boundary {
 
     private xLimit : number = DEFAULTXLIMIT;

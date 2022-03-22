@@ -1,5 +1,5 @@
 import { Go } from '../src/controller';
-
+ 
 describe("Controller", () => {
 
     it.each([

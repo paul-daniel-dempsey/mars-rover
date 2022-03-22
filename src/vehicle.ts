@@ -1,5 +1,5 @@
 import { Boundary } from "./boundary";
-
+ 
 const DEFAULTXLIMIT = 5;
 const DEFAULTVEHICLESTEP = 1;
 const ALLHEADINGS = 'NESW';
