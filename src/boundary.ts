@@ -1,6 +1,6 @@
 const DEFAULTXLIMIT = 5;
 const DEFAULTYLIMIT = DEFAULTXLIMIT;
-
+ 
 export class Boundary {
 
     private xLimit : number = DEFAULTXLIMIT;
@@ -26,9 +26,9 @@ export class Boundary {
         }
         else if (this.validSetup) {
             // Take Custom Grid (N=vehicle not allowed to enter)
-        this.xLimit=xyGrid[1].length;
-        this.yLimit=xyGrid.length;
-        this.xyAllowGrid = xyGrid.slice().reverse(); // copy/duplicate array, invert Y-axis  
+            this.xLimit=xyGrid[1].length;
+            this.yLimit=xyGrid.length;
+            this.xyAllowGrid = xyGrid.slice().reverse(); // copy/duplicate array, invert Y-axis  
         }
         this.identifier = (identifer === undefined ? '' : identifer);
     }
@@ -36,5 +36,10 @@ export class Boundary {
     // Check location
     validateLocation(x : number, y :number) : boolean {
         return (this.validSetup && x < this.xLimit && x >= 0 && y < this.yLimit && y >= 0) ? (this.xyAllowGrid[y][x] !== 'N') : false;
+    }
+
+    // Make location not enterable
+    inValidateLocation(x : number, y :number) {
+        this.xyAllowGrid[y][x] = 'N';
     }
 }
