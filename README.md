@@ -37,6 +37,9 @@ Future Enhancements (provisioned) ->
 3. Vehicle move multiple steps (optional vehicle setup: 'X Y N/E/S/W STEP' where STEP 1-5)
 4. Vehicle & Boundary Identification (optional Go Function Identifier Strings for grid and vehicle)
 
+Revision ->
+Multiple Sequential Rovers Now Supported (controller.GoMultiple), the final resting place of each vehicle returned in string 'Name X Y D,Name X Y D,...'.
+
 ==========================================================
 
 Installation/Setup
