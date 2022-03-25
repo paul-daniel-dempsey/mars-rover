@@ -28,9 +28,11 @@ export class Grid {
             // Take Custom Grid (N=vehicle not allowed to enter)
             this.xLimit=xyGrid[1].length;
             this.yLimit=xyGrid.length;
-            this.xyAllowGrid = xyGrid.slice().reverse(); // copy/duplicate array, invert Y-axis  
+            this.xyAllowGrid = JSON.parse(JSON.stringify(xyGrid.slice().reverse())) // VALUE/DEEP COPY of duplicate array, invert Y-axis  
+            //this.xyAllowGrid = xyGrid.slice().reverse(); // REFERENCE/SHALLOW COPY of duplicate array, invert Y-axis  
         }
         this.identifier = (identifer === undefined ? '' : identifer);
+        
     }
 
     isLocationValid(x : number, y :number) : boolean {

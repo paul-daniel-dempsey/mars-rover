@@ -1,4 +1,4 @@
-import { moveVehicle, moveMultipleVehicles } from '../src/controller';
+import { moveVehicle, moveVehicles } from '../src/controller';
  
 describe("Controller", () => {
 
@@ -121,9 +121,10 @@ it.each([
                     ['Y','N','N','N','Y'],
                     ['Y','N','N','N','Y'],
                     ['Y','Y','Y','Y','Y']]; 
-    it.each([[crater,'0 0 N','MMMMMRMML','2 4 N'],
-             [crater,'0 0 N','MR','0 1 E'],
-             [crater,'0 0 N','MRMRMLL','0 0 N'],
+    it.each([
+            [crater,'0 0 N','MR','0 1 E'],
+            [crater,'0 0 N','MMMMMRMML','2 4 N'],
+            [crater,'0 0 N','MRMRMLL','0 0 N'],
     ])
     ("Custom Crater Test", (crater, vehicle, commands, result) => {
         expect(moveVehicle(undefined,crater,vehicle,commands)).toEqual(result);
@@ -195,10 +196,10 @@ it.each([
     expect(moveVehicle(undefined,identifiers,vehicle,commands,identBoundary,identVehicle)).toEqual(result);
     });
 
-    it.each([['5 5',undefined,[['0 0 N','MMRM','RoverA'],['0 0 N','MMMRM','RoverB']],'RoverA 1 2 E,RoverB 1 3 E,'],
-             ['5 5',undefined,[['0 0 N','MMRM','RoverA'],['0 0 N','MMRM','RoverB']],'RoverA 1 2 E,RoverB 0 2 E,'],
+    it.each([['5 5',undefined,[['0 0 N','MMRM','RoverA'],['0 0 N','MMMRM','RoverB']],'RoverA 1 2 E,RoverB 1 3 E'],
+             ['5 5',undefined,[['0 0 N','MMRM','RoverA'],['0 0 N','MMRM','RoverB']],'RoverA 1 2 E,RoverB 0 2 E'],
     ])
     ("Sequential Rovers on same Plateau will go around each other : [%p][%p][%o]=[%p]", (boundary, customboundary, vehicles,result) => {
-    expect(moveMultipleVehicles(boundary,customboundary,vehicles)).toEqual(result);
+    expect(moveVehicles(boundary,customboundary,vehicles)).toEqual(result);
     });
 });

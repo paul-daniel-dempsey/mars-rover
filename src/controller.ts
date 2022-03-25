@@ -2,31 +2,30 @@ import {Grid} from './grid';
 import {Vehicle} from './vehicle';
  
 // Single Rover
-export function moveVehicle (boundary : string, boundaryCustom : string[][], vehicle : string, commands : string, identBoundary? : string, identVehicle? :string) : string {
-
-    let plateau = new Grid(boundary,boundaryCustom,identBoundary);
-    let rover = new Vehicle(vehicle,plateau,identVehicle);
-    rover.move(commands,plateau);
-    return rover.location(plateau);
+export function moveVehicle (boundary : string, 
+                            boundaryCustom : string[][], 
+                            vehicle : string, 
+                            commands : string, 
+                            identBoundary? : string, 
+                            identVehicle? :string) : string {
+    return moveVehicles(boundary,boundaryCustom,[[vehicle,commands,identVehicle]],identBoundary);
 }
 
-// Multiple Sequential Rovers Supported On Same Boundary/Plateau
+// Multiple Sequential Rovers
 // Vehicles array input (string[][]) => [['startX startY startDirection','moves','VehicleNameA'],['startX startY startDirection','moves','VehicleNameB'],...]
 // Vehicles resting place returned (string) => 'VehicleNameA X Y Direction,VehicleNameB X Y Direction,...'
-export function moveMultipleVehicles (boundary : string, boundaryCustom : string[][], 
-                             vehiclePosCmdsId : string[][], identBoundary? : string,) : string {
+export function moveVehicles (boundary : string, boundaryCustom : string[][], 
+                             vehicles : string[][], identBoundary? : string,) : string {
 
     let plateau = new Grid(boundary,boundaryCustom,identBoundary);
-    let lastValidVehicleLocation : string = '';
+    let vehicleLocation : string = '';
 
-    vehiclePosCmdsId.forEach(vehicle => { 
-        
+    vehicles.forEach(vehicle => { 
         let rover = new Vehicle(vehicle[0],plateau,vehicle[2]);
-        rover.move(vehicle[1],plateau);
-        if (rover.location(plateau) !== '') {
+        if (rover.move(vehicle[1],plateau) !== '') {
             plateau.inValidateLocation(rover.x,rover.y);
-            lastValidVehicleLocation += rover.location(plateau) + ',';
+            vehicleLocation += rover.location(plateau) + ',';
         }
     });
-    return lastValidVehicleLocation;
+    return vehicleLocation.slice(0,vehicleLocation.length-1);
 }
