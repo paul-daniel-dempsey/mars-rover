@@ -1,4 +1,4 @@
-import { Boundary } from "./boundary";
+import { Grid } from "./grid";
  
 const DEFAULTXLIMIT = 5;
 const DEFAULTVEHICLESTEP = 1;
@@ -7,17 +7,16 @@ const ALLHEADINGS = 'NESW';
 export class Vehicle {
 
     private step : number;
+    private direction : string;
+    //private moveRecord : string;
+
+    // Allow anyone to check Vehicle location & setup correct and identifier
     x : number;
     y : number;
-    private direction : string;
-
-    private moveRecord : string;
-
-    // Allow anyone to check Vehicle setup correct and licence plate
     identifier : string;
     validSetup : boolean;
 
-    constructor(setup : string, boundary : Boundary, identifier? : string) {
+    constructor(setup : string, boundary : Grid, identifier? : string) {
            
         // SetUp String correct?
         //const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1} [N|S|E|W]{1}\s?[0-' + DEFAULTXLIMIT + ']?)$');
@@ -32,19 +31,19 @@ export class Vehicle {
             this.y = parseInt(params[1]);
             this.direction = params[2];
             this.step = ((params[3] === undefined) ? DEFAULTVEHICLESTEP : parseInt(params[3]));
-            this.moveRecord = `(${this.x} ${this.y})`;
-            this.validSetup &&= boundary.validateLocation(this.x,this.y);  
+            //this.moveRecord = `(${this.x} ${this.y})`;
+            this.validSetup &&= boundary.isLocationValid(this.x,this.y);  
         }
         this.identifier = (identifier === undefined ? '' : identifier);
     }
 
     // Traverse foward moves and rotates
-    move(commands : string, boundary : Boundary) {
+    move(commands : string, boundary : Grid) {
         commands.split('').forEach(cmd => { this.isRotate(cmd) ? this.rotate(cmd) : this.isTravel(cmd) ? this.travel(boundary,cmd) : 0})
     }
 
     // Retreive location
-    location(boundary : Boundary) : string {
+    location(boundary : Grid) : string {
         //console.log(`${this.moves}`)
         return (this.validSetup) ? `${boundary.identifier} ${this.identifier} ${this.x} ${this.y} ${this.direction}`.trim() : ``;
     }
@@ -62,14 +61,14 @@ export class Vehicle {
     }
     
     // Change x, y based upon direction
-    private travel(boundary : Boundary, direction : string) {
+    private travel(boundary : Grid, direction : string) {
         const invert = ((direction==='B')? -1 : 1);
         const xStep = ((this.direction==='E')? this.step*invert: ((this.direction==='W')? -this.step*invert: 0)); 
         const yStep = ((this.direction==='N')? this.step*invert: ((this.direction==='S')? -this.step*invert: 0)); 
-        if (boundary.validateLocation(this.x + xStep,this.y + yStep)) {
+        if (boundary.isLocationValid(this.x + xStep,this.y + yStep)) {
             this.x += xStep;
             this.y += yStep; 
-            this.moveRecord += `(${this.x} ${this.y})`;
+            //this.moveRecord += `(${this.x} ${this.y})`;
         } 
     }
 

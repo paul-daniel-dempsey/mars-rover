@@ -1,10 +1,10 @@
-import {Boundary} from './boundary';
+import {Grid} from './grid';
 import {Vehicle} from './vehicle';
  
 // Single Rover
-export function Go (boundary : string, boundaryCustom : string[][], vehicle : string, commands : string, identBoundary? : string, identVehicle? :string) : string {
+export function moveVehicle (boundary : string, boundaryCustom : string[][], vehicle : string, commands : string, identBoundary? : string, identVehicle? :string) : string {
 
-    let plateau = new Boundary(boundary,boundaryCustom,identBoundary);
+    let plateau = new Grid(boundary,boundaryCustom,identBoundary);
     let rover = new Vehicle(vehicle,plateau,identVehicle);
     rover.move(commands,plateau);
     return rover.location(plateau);
@@ -13,10 +13,10 @@ export function Go (boundary : string, boundaryCustom : string[][], vehicle : st
 // Multiple Sequential Rovers Supported On Same Boundary/Plateau
 // Vehicles array input (string[][]) => [['startX startY startDirection','moves','VehicleNameA'],['startX startY startDirection','moves','VehicleNameB'],...]
 // Vehicles resting place returned (string) => 'VehicleNameA X Y Direction,VehicleNameB X Y Direction,...'
-export function GoMultiple (boundary : string, boundaryCustom : string[][], 
+export function moveMultipleVehicles (boundary : string, boundaryCustom : string[][], 
                              vehiclePosCmdsId : string[][], identBoundary? : string,) : string {
 
-    let plateau = new Boundary(boundary,boundaryCustom,identBoundary);
+    let plateau = new Grid(boundary,boundaryCustom,identBoundary);
     let lastValidVehicleLocation : string = '';
 
     vehiclePosCmdsId.forEach(vehicle => { 
@@ -30,7 +30,3 @@ export function GoMultiple (boundary : string, boundaryCustom : string[][],
     });
     return lastValidVehicleLocation;
 }
-
-module.exports = {
-    Go,GoMultiple
-};

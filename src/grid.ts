@@ -1,20 +1,20 @@
-const DEFAULTXLIMIT = 5;
-const DEFAULTYLIMIT = DEFAULTXLIMIT;
+const DEFAULT_MAXIMUM_X = 5;
+const DEFAULT_MAXIMUM_Y = DEFAULT_MAXIMUM_X;
  
-export class Boundary {
+export class Grid {
 
-    private xLimit : number = DEFAULTXLIMIT;
-    private yLimit : number = DEFAULTYLIMIT;
+    private xLimit : number = DEFAULT_MAXIMUM_X;
+    private yLimit : number = DEFAULT_MAXIMUM_Y;
     private xyAllowGrid : string[][];
 
-    // Allow anyone to check Boundary setup correct and name of area
+    // Allow anyone to check Grid setup correct and name of area
     identifier : string;
     validSetup : boolean;
 
     constructor(xySetup : string, xyGrid: string[][], identifer? : string) {
         
         // SetUp string correct?
-        const CODE_PATTERN = new RegExp('^([0-' + DEFAULTXLIMIT + ']{1} [0-' + DEFAULTXLIMIT + ']{1})$')
+        const CODE_PATTERN = new RegExp('^([0-' + DEFAULT_MAXIMUM_X + ']{1} [0-' + DEFAULT_MAXIMUM_X + ']{1})$')
         this.validSetup = CODE_PATTERN.test(xySetup) || !(xyGrid === undefined);
         
         if (this.validSetup && (xyGrid === undefined)) {
@@ -33,12 +33,10 @@ export class Boundary {
         this.identifier = (identifer === undefined ? '' : identifer);
     }
 
-    // Check location
-    validateLocation(x : number, y :number) : boolean {
+    isLocationValid(x : number, y :number) : boolean {
         return (this.validSetup && x < this.xLimit && x >= 0 && y < this.yLimit && y >= 0) ? (this.xyAllowGrid[y][x] !== 'N') : false;
     }
 
-    // Make location not enterable
     inValidateLocation(x : number, y :number) {
         this.xyAllowGrid[y][x] = 'N';
     }
