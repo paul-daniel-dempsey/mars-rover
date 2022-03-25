@@ -4,6 +4,12 @@ const DEFAULT_MAXIMUM_X = 5;
 const DEFAULT_VEHICLE_STEP = 1;
 const HEADINGS = 'NESW';
 
+const ROTATE_COMMANDS = ['L', 'R'] as const;
+export type RotateCommand = typeof ROTATE_COMMANDS[number];
+
+const TRAVEL_COMMANDS = ['M','F', 'B'] as const;
+export type TravelCommand = typeof TRAVEL_COMMANDS[number];
+
 export class Vehicle {
 
     private step : number;
@@ -14,7 +20,11 @@ export class Vehicle {
     x : number;
     y : number;
     identifier : string;
-    validSetup : boolean;
+    validSetup : boolean; 
+
+    // Custom type checks
+    isRotate = (cmd: any): cmd is RotateCommand => ROTATE_COMMANDS.includes(cmd);
+    isTravel = (cmd: any): cmd is TravelCommand => TRAVEL_COMMANDS.includes(cmd);
 
     constructor(setup : string, boundary : Grid, identifier? : string) {
            
@@ -71,12 +81,6 @@ export class Vehicle {
             this.y += yStep; 
             //this.moveRecord += `(${this.x} ${this.y})`;
         } 
-    }
-
-    private isRotate(cmd : string): Boolean {
-        return (cmd === 'L' || cmd === 'R'); }
-    
-    private isTravel(cmd : string): Boolean {
-        return (cmd === 'M' || cmd === 'F' || cmd === 'B'); }      
+    }  
 }
 
