@@ -171,15 +171,13 @@ it.each([
                             ['0 1','1 1','2 1','3 1','4 1'],
                             ['0 0','1 0','2 0','3 0','4 0']];
     it.each([
-        [moveBigSteps,'0 0 N 1','FF','0 2 N'],
-        [moveBigSteps,'4 4 S 1','FF','4 2 S'],
-        [moveBigSteps,'0 0 N 2','FF','0 4 N'],
-        [moveBigSteps,'4 4 S 2','FF','4 0 S'],
-        [moveBigSteps,'0 0 N 3','FF','0 3 N'],
-        [moveBigSteps,'4 4 S 3','FF','4 1 S'],
+         [moveBigSteps,'0 0 N','FF',2,'0 4 N'],
+         [moveBigSteps,'4 4 S','FF',2,'4 0 S'],
+         [moveBigSteps,'0 0 N','FF',3,'0 3 N'],
+         [moveBigSteps,'4 4 S','FF',3,'4 1 S'],
         ])
-    ("Vehicle move in bigger steps", (moveBigSteps, vehicle, commands, result) => {
-    expect(moveVehicle(undefined,moveBigSteps,vehicle,commands)).toEqual(result);
+    ("Vehicle move in bigger steps", (moveBigSteps, vehicle, commands, step, result) => {
+    expect(moveVehicle(undefined,moveBigSteps,vehicle,commands,undefined,undefined,step)).toEqual(result);
     });
     const identifiers=[ ['0 4','1 4','2 4','3 4','4 4'],
                         ['0 3','1 3','2 3','3 3','4 3'],
@@ -187,10 +185,10 @@ it.each([
                         ['0 1','1 1','2 1','3 1','4 1'],
                         ['0 0','1 0','2 0','3 0','4 0']];
     it.each([
-    [identifiers,'0 0 N 1','FF','','','0 2 N'],
-    [identifiers,'0 0 N 1','FF','surfaceMars','','surfaceMars  0 2 N'],
-    [identifiers,'0 0 N 1','FF','','roverMars','roverMars 0 2 N'],
-    [identifiers,'0 0 N 1','FF','surfaceMars','roverMars','surfaceMars roverMars 0 2 N'],
+    [identifiers,'0 0 N','FF','','','0 2 N'],
+    [identifiers,'0 0 N','FF','surfaceMars','','surfaceMars  0 2 N'],
+    [identifiers,'0 0 N','FF','','roverMars','roverMars 0 2 N'],
+    [identifiers,'0 0 N','FF','surfaceMars','roverMars','surfaceMars roverMars 0 2 N'],
     ])
     ("Vehicle move in bigger steps", (identifiers, vehicle, commands, identBoundary, identVehicle, result) => {
     expect(moveVehicle(undefined,identifiers,vehicle,commands,identBoundary,identVehicle)).toEqual(result);
